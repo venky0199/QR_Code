@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Code Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+</head>
+<body>
+  <label for="input-data">Enter the data to encode:</label>
+  <input type="text" id="input-data" />
+  <button onclick="generateQRCode()">Generate QR Code</button>
+  <br><br><br><br>
+  
+  <canvas id="qrcode-canvas"></canvas>
+  <br><br>
+  <button onclick="saveQRCode()">Save QR Code</button>
+
+  <script>
+    function generateQRCode() {
+      var data = document.getElementById("input-data").value;
+      var qr = new QRious({
+        element: document.getElementById("qrcode-canvas"),
+        value: data,
+        size: 200
+      });
+    }
+
+    function saveQRCode() {
+      var canvas = document.getElementById("qrcode-canvas");
+      var downloadLink = document.createElement("a");
+      downloadLink.href = canvas.toDataURL("image/png");
+      downloadLink.download = "qrcode.png";
+      downloadLink.click();
+    }
+  </script>
+</body>
+</html>
